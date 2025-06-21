@@ -67,7 +67,8 @@ hooks.onsave = function()
     end
     return tbl_15_auto
   end
-  patterns = vim.tbl_flatten({resolve_file_pattern(env.get("vimrc")), (resolve_file_pattern(env.get("source")) .. "*.fnl"), map(_4_, env.get("rtpdirs")), map(_5_, _6_())})
+  patterns = {resolve_file_pattern(env.get("vimrc")), (resolve_file_pattern(env.get("source")) .. "*.fnl"), map(_4_, env.get("rtpdirs")), map(_5_, _6_())}
+  patterns = vim.iter(patterns):flatten():totable()
   return augroup("tangerine-onsave", {{"BufWritePost", table.concat(patterns, ",")}, run_hooks})
 end
 hooks.onload = function()
