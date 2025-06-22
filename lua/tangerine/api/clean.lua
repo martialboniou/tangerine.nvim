@@ -7,21 +7,21 @@ local _local_2_ = require("tangerine.output")
 local log = _local_2_["log"]
 local clean = {}
 local function merge(list1, list2)
-  _G.assert((nil ~= list2), "Missing argument list2 on fnl/tangerine/api/clean.fnl:26")
-  _G.assert((nil ~= list1), "Missing argument list1 on fnl/tangerine/api/clean.fnl:26")
+  _G.assert((nil ~= list2), "Missing argument list2 on tangerine/api/clean.fnl:26")
+  _G.assert((nil ~= list1), "Missing argument list1 on tangerine/api/clean.fnl:26")
   for _, val in ipairs(list2) do
     table.insert(list1, val)
   end
   return list1
 end
 local function tbl_merge(tbl1, tbl2)
-  _G.assert((nil ~= tbl2), "Missing argument tbl2 on fnl/tangerine/api/clean.fnl:32")
-  _G.assert((nil ~= tbl1), "Missing argument tbl1 on fnl/tangerine/api/clean.fnl:32")
+  _G.assert((nil ~= tbl2), "Missing argument tbl2 on tangerine/api/clean.fnl:32")
+  _G.assert((nil ~= tbl1), "Missing argument tbl1 on tangerine/api/clean.fnl:32")
   return vim.tbl_extend("keep", (tbl1 or {}), tbl2)
 end
 clean.target = function(source, target, _3fopts)
-  _G.assert((nil ~= target), "Missing argument target on fnl/tangerine/api/clean.fnl:40")
-  _G.assert((nil ~= source), "Missing argument source on fnl/tangerine/api/clean.fnl:40")
+  _G.assert((nil ~= target), "Missing argument target on tangerine/api/clean.fnl:40")
+  _G.assert((nil ~= source), "Missing argument source on tangerine/api/clean.fnl:40")
   local opts = (_3fopts or {})
   local target0 = p.resolve(target)
   local source_3f = fs["readable?"](p.resolve(source))

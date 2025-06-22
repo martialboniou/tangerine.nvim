@@ -17,14 +17,14 @@ local function load_vimrc()
   end
 end
 local function load_hooks(hooks)
-  _G.assert((nil ~= hooks), "Missing argument hooks on fnl/tangerine.fnl:21")
+  _G.assert((nil ~= hooks), "Missing argument hooks on tangerine.fnl:21")
   for _, hook in ipairs(env.get("compiler", "hooks")) do
     hooks[hook]()
   end
   return nil
 end
 local function setup(config)
-  _G.assert((nil ~= config), "Missing argument config on fnl/tangerine.fnl:26")
+  _G.assert((nil ~= config), "Missing argument config on tangerine.fnl:26")
   env.set(config)
   fennel["patch-path"]()
   tangerine = {api = api, fennel = fennel.load}

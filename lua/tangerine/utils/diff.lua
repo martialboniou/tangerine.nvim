@@ -1,16 +1,16 @@
 local df = {}
 df["create-marker"] = function(source)
-  _G.assert((nil ~= source), "Missing argument source on fnl/tangerine/utils/diff.fnl:11")
+  _G.assert((nil ~= source), "Missing argument source on tangerine/utils/diff.fnl:11")
   local base = "-- :fennel:"
   local meta = vim.fn.getftime(source)
   return (base .. meta)
 end
 df["read-marker"] = function(path)
-  _G.assert((nil ~= path), "Missing argument path on fnl/tangerine/utils/diff.fnl:17")
+  _G.assert((nil ~= path), "Missing argument path on tangerine/utils/diff.fnl:17")
   local file = assert(io.open(path, "r"))
-  local function close_handlers_8_auto(ok_9_auto, ...)
+  local function close_handlers_12_auto(ok_13_auto, ...)
     file:close()
-    if ok_9_auto then
+    if ok_13_auto then
       return ...
     else
       return error(..., 0)
@@ -27,11 +27,11 @@ df["read-marker"] = function(path)
       return nil
     end
   end
-  return close_handlers_8_auto(_G.xpcall(_2_, (package.loaded.fennel or debug).traceback))
+  return close_handlers_12_auto(_G.xpcall(_2_, (package.loaded.fennel or _G.debug or {}).traceback))
 end
 df["stale?"] = function(source, target)
-  _G.assert((nil ~= target), "Missing argument target on fnl/tangerine/utils/diff.fnl:26")
-  _G.assert((nil ~= source), "Missing argument source on fnl/tangerine/utils/diff.fnl:26")
+  _G.assert((nil ~= target), "Missing argument target on tangerine/utils/diff.fnl:26")
+  _G.assert((nil ~= source), "Missing argument source on tangerine/utils/diff.fnl:26")
   if (1 ~= vim.fn.filereadable(target)) then
     return true
   else

@@ -4,7 +4,7 @@ local win = _local_1_["win"]
 local srl = _local_1_["srl"]
 local dp = {}
 local function print(str)
-  _G.assert((nil ~= str), "Missing argument str on fnl/tangerine/output/display.fnl:14")
+  _G.assert((nil ~= str), "Missing argument str on tangerine/output/display.fnl:14")
   if (_G.has_ui or (0 < #vim.api.nvim_list_uis())) then
     return vim.api.nvim_echo({{str}}, false, {})
   else
@@ -12,7 +12,7 @@ local function print(str)
   end
 end
 local function format(code)
-  _G.assert((nil ~= code), "Missing argument code on fnl/tangerine/output/display.fnl:19")
+  _G.assert((nil ~= code), "Missing argument code on tangerine/output/display.fnl:19")
   local luafmt = env.get("eval", "luafmt")()
   if (0 == vim.fn.executable((luafmt[1] or ""))) then
     return code
@@ -21,8 +21,8 @@ local function format(code)
   end
 end
 dp.show = function(res, opts)
-  _G.assert((nil ~= opts), "Missing argument opts on fnl/tangerine/output/display.fnl:30")
-  _G.assert((nil ~= res), "Missing argument res on fnl/tangerine/output/display.fnl:30")
+  _G.assert((nil ~= opts), "Missing argument opts on tangerine/output/display.fnl:30")
+  _G.assert((nil ~= res), "Missing argument res on tangerine/output/display.fnl:30")
   if (0 == #res) then
     return
   else
@@ -36,8 +36,8 @@ dp.show = function(res, opts)
   return true
 end
 dp["show-lua"] = function(code, opts)
-  _G.assert((nil ~= opts), "Missing argument opts on fnl/tangerine/output/display.fnl:41")
-  _G.assert((nil ~= code), "Missing argument code on fnl/tangerine/output/display.fnl:41")
+  _G.assert((nil ~= opts), "Missing argument opts on tangerine/output/display.fnl:41")
+  _G.assert((nil ~= code), "Missing argument code on tangerine/output/display.fnl:41")
   local out = format(code)
   if env.conf(opts, {"eval", "float"}) then
     win["set-float"](out, "lua", env.get("highlight", "float"))

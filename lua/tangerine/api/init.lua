@@ -1,5 +1,5 @@
 local function lazy(module, _3ffunc)
-  _G.assert((nil ~= module), "Missing argument module on fnl/tangerine/api/init.fnl:10")
+  _G.assert((nil ~= module), "Missing argument module on tangerine/api/init.fnl:10")
   local function _1_(...)
     local mod = require(("tangerine." .. module))
     local _2_

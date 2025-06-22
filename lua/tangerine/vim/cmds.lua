@@ -1,10 +1,10 @@
 local prefix = "lua tangerine.api."
 local function odd_3f(int)
-  _G.assert((nil ~= int), "Missing argument int on fnl/tangerine/vim/cmds.fnl:11")
+  _G.assert((nil ~= int), "Missing argument int on tangerine/vim/cmds.fnl:11")
   return (0 ~= (int % 2))
 end
 local function parse_opts(opts)
-  _G.assert((nil ~= opts), "Missing argument opts on fnl/tangerine/vim/cmds.fnl:15")
+  _G.assert((nil ~= opts), "Missing argument opts on tangerine/vim/cmds.fnl:15")
   local out = ""
   for idx, val in ipairs(opts) do
     if odd_3f(idx) then
@@ -17,9 +17,9 @@ local function parse_opts(opts)
   return out
 end
 local function command_21(cmd, func, _3fargs, opts)
-  _G.assert((nil ~= opts), "Missing argument opts on fnl/tangerine/vim/cmds.fnl:25")
-  _G.assert((nil ~= func), "Missing argument func on fnl/tangerine/vim/cmds.fnl:25")
-  _G.assert((nil ~= cmd), "Missing argument cmd on fnl/tangerine/vim/cmds.fnl:25")
+  _G.assert((nil ~= opts), "Missing argument opts on tangerine/vim/cmds.fnl:25")
+  _G.assert((nil ~= func), "Missing argument func on tangerine/vim/cmds.fnl:25")
+  _G.assert((nil ~= cmd), "Missing argument cmd on tangerine/vim/cmds.fnl:25")
   local opts0 = parse_opts(opts)
   return vim.cmd(("command!" .. " " .. opts0 .. " " .. cmd .. " " .. prefix .. func .. (_3fargs or "()")))
 end

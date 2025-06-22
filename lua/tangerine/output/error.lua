@@ -13,24 +13,24 @@ local function toboolean(x)
   end
 end
 err["compile?"] = function(msg, _3fraw)
-  _G.assert((nil ~= msg), "Missing argument msg on fnl/tangerine/output/error.fnl:24")
+  _G.assert((nil ~= msg), "Missing argument msg on tangerine/output/error.fnl:24")
   local e
   if _3fraw then
     e = "[0-9?]+"
   else
     e = "[0-9]+"
   end
-  return toboolean((msg:match(("^[%s\9]*Parse error.*:" .. e)) or msg:match(("^[%s\9]*Compile error.*:" .. e))))
+  return toboolean((msg:match(("^[%s\t]*Parse error.*:" .. e)) or msg:match(("^[%s\t]*Compile error.*:" .. e))))
 end
 err.parse = function(msg, offset)
-  _G.assert((nil ~= offset), "Missing argument offset on fnl/tangerine/output/error.fnl:31")
-  _G.assert((nil ~= msg), "Missing argument msg on fnl/tangerine/output/error.fnl:31")
+  _G.assert((nil ~= offset), "Missing argument offset on tangerine/output/error.fnl:31")
+  _G.assert((nil ~= msg), "Missing argument msg on tangerine/output/error.fnl:31")
   local lines = vim.split(msg, "\n")
   local line = string.match(lines[1], ".-:([0-9]+)")
   local shortmsg = ""
   for _, line0 in ipairs(lines) do
     if not err["compile?"](line0, true) then
-      shortmsg = line0:gsub("^[%s\9]+", "")
+      shortmsg = line0:gsub("^[%s\t]+", "")
       break
     else
     end
@@ -48,9 +48,9 @@ err.clear = function()
   return vim.api.nvim_buf_clear_namespace(0, nspace, 0, -1)
 end
 err.send = function(line, msg, virtual_3f)
-  _G.assert((nil ~= virtual_3f), "Missing argument virtual? on fnl/tangerine/output/error.fnl:58")
-  _G.assert((nil ~= msg), "Missing argument msg on fnl/tangerine/output/error.fnl:58")
-  _G.assert((nil ~= line), "Missing argument line on fnl/tangerine/output/error.fnl:58")
+  _G.assert((nil ~= virtual_3f), "Missing argument virtual? on tangerine/output/error.fnl:58")
+  _G.assert((nil ~= msg), "Missing argument msg on tangerine/output/error.fnl:58")
+  _G.assert((nil ~= line), "Missing argument line on tangerine/output/error.fnl:58")
   if not vim.diagnostic then
     return
   else
@@ -66,20 +66,20 @@ err.send = function(line, msg, virtual_3f)
     end
   end
   vim.diagnostic.set(nspace, buffer, {{lnum = line, col = 0, end_col = -1, severity = vim.diagnostic.severity.ERROR, source = "tangerine", message = msg}}, _6_())
-  do end (timer.get):start((1000 * timeout), 0, vim.schedule_wrap(err.clear))
+  timer.get:start((1000 * timeout), 0, vim.schedule_wrap(err.clear))
   return true
 end
 err.soft = function(msg)
-  _G.assert((nil ~= msg), "Missing argument msg on fnl/tangerine/output/error.fnl:89")
+  _G.assert((nil ~= msg), "Missing argument msg on tangerine/output/error.fnl:89")
   return vim.api.nvim_echo({{msg, hl_errors}}, false, {})
 end
 err.float = function(msg)
-  _G.assert((nil ~= msg), "Missing argument msg on fnl/tangerine/output/error.fnl:93")
+  _G.assert((nil ~= msg), "Missing argument msg on tangerine/output/error.fnl:93")
   return win["set-float"](msg, "text", hl_errors)
 end
 err.handle = function(msg, opts)
-  _G.assert((nil ~= opts), "Missing argument opts on fnl/tangerine/output/error.fnl:97")
-  _G.assert((nil ~= msg), "Missing argument msg on fnl/tangerine/output/error.fnl:97")
+  _G.assert((nil ~= opts), "Missing argument opts on tangerine/output/error.fnl:97")
+  _G.assert((nil ~= msg), "Missing argument msg on tangerine/output/error.fnl:97")
   if (err["compile?"](msg) and number_3f(opts.offset)) then
     local line, msg0 = err.parse(msg, opts.offset)
     err.send(line, msg0, env.conf(opts, {"eval", "diagnostic", "virtual"}))

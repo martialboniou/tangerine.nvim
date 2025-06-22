@@ -10,30 +10,30 @@ local log = _local_2_["log"]
 local err = _local_2_["err"]
 local compile = {}
 local function compiled(source)
-  _G.assert((nil ~= source), "Missing argument source on fnl/tangerine/api/compile.fnl:31")
+  _G.assert((nil ~= source), "Missing argument source on tangerine/api/compile.fnl:31")
   return print(("\"" .. source .. "\" compiled"))
 end
 local function compile_3f(source, target, opts)
-  _G.assert((nil ~= opts), "Missing argument opts on fnl/tangerine/api/compile.fnl:35")
-  _G.assert((nil ~= target), "Missing argument target on fnl/tangerine/api/compile.fnl:35")
-  _G.assert((nil ~= source), "Missing argument source on fnl/tangerine/api/compile.fnl:35")
+  _G.assert((nil ~= opts), "Missing argument opts on tangerine/api/compile.fnl:35")
+  _G.assert((nil ~= target), "Missing argument target on tangerine/api/compile.fnl:35")
+  _G.assert((nil ~= source), "Missing argument source on tangerine/api/compile.fnl:35")
   return (not source:find("macros%.fnl$") and fs["readable?"](source) and (env.conf(opts, {"compiler", "force"}) or df["stale?"](source, target)))
 end
 local function merge(list1, list2)
-  _G.assert((nil ~= list2), "Missing argument list2 on fnl/tangerine/api/compile.fnl:42")
-  _G.assert((nil ~= list1), "Missing argument list1 on fnl/tangerine/api/compile.fnl:42")
+  _G.assert((nil ~= list2), "Missing argument list2 on tangerine/api/compile.fnl:42")
+  _G.assert((nil ~= list1), "Missing argument list1 on tangerine/api/compile.fnl:42")
   for _, val in ipairs(list2) do
     table.insert(list1, val)
   end
   return list1
 end
 local function tbl_merge(tbl1, tbl2)
-  _G.assert((nil ~= tbl2), "Missing argument tbl2 on fnl/tangerine/api/compile.fnl:48")
-  _G.assert((nil ~= tbl1), "Missing argument tbl1 on fnl/tangerine/api/compile.fnl:48")
+  _G.assert((nil ~= tbl2), "Missing argument tbl2 on tangerine/api/compile.fnl:48")
+  _G.assert((nil ~= tbl1), "Missing argument tbl1 on tangerine/api/compile.fnl:48")
   return vim.tbl_extend("keep", (tbl1 or {}), tbl2)
 end
 compile.string = function(str, _3fopts)
-  _G.assert((nil ~= str), "Missing argument str on fnl/tangerine/api/compile.fnl:73")
+  _G.assert((nil ~= str), "Missing argument str on tangerine/api/compile.fnl:73")
   local opts = (_3fopts or {})
   local fennel0 = fennel.load()
   local filename = (opts.filename or "tangerine-out")
@@ -41,8 +41,8 @@ compile.string = function(str, _3fopts)
   return fennel0.compileString(str, {filename = filename, allowedGlobals = globals, compilerEnv = _G, useBitLib = true})
 end
 compile.file = function(source, target, _3fopts)
-  _G.assert((nil ~= target), "Missing argument target on fnl/tangerine/api/compile.fnl:83")
-  _G.assert((nil ~= source), "Missing argument source on fnl/tangerine/api/compile.fnl:83")
+  _G.assert((nil ~= target), "Missing argument target on tangerine/api/compile.fnl:83")
+  _G.assert((nil ~= source), "Missing argument source on tangerine/api/compile.fnl:83")
   local opts = (_3fopts or {})
   local source0 = p.resolve(source)
   local target0 = p.resolve(target)
@@ -55,8 +55,8 @@ compile.file = function(source, target, _3fopts)
   return true
 end
 compile.dir = function(sourcedir, targetdir, _3fopts)
-  _G.assert((nil ~= targetdir), "Missing argument targetdir on fnl/tangerine/api/compile.fnl:100")
-  _G.assert((nil ~= sourcedir), "Missing argument sourcedir on fnl/tangerine/api/compile.fnl:100")
+  _G.assert((nil ~= targetdir), "Missing argument targetdir on tangerine/api/compile.fnl:100")
+  _G.assert((nil ~= sourcedir), "Missing argument sourcedir on tangerine/api/compile.fnl:100")
   local opts = (_3fopts or {})
   local logs = {}
   for _, source in ipairs(p.wildcard(sourcedir, "**/*.fnl")) do
@@ -161,9 +161,8 @@ compile.custom = function(_3fopts)
   local logs = {}
   local args = env.conf(opts, {"custom"})
   for _, _17_ in ipairs(args) do
-    local _each_18_ = _17_
-    local sourcedir = _each_18_[1]
-    local targetdir = _each_18_[2]
+    local sourcedir = _17_[1]
+    local targetdir = _17_[2]
     local out_2_auto = (compile.dir(sourcedir, targetdir, tbl_merge({verbose = false}, opts)) or {})
     do
       local out_2_auto0 = out_2_auto
@@ -198,13 +197,13 @@ compile.all = function(_3fopts)
     if compile_3f(source, target, opts) then
       table.insert(logs, sname)
       local out_2_auto
-      local function _21_()
+      local function _20_()
         return compile.file(source, target, opts)
       end
-      local function _22_(_241)
+      local function _21_(_241)
         return log.failure("COMPILE ERROR", sname, _241, opts)
       end
-      out_2_auto = xpcall(_21_, _22_)
+      out_2_auto = xpcall(_20_, _21_)
       if ((0 == out_2_auto) or (false == out_2_auto)) then
         return 0
       else
