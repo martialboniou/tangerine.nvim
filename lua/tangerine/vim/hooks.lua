@@ -6,7 +6,7 @@ local function esc_file_pattern(path)
   return (path:gsub("[%*%?%[%]%{%}\\,]", "\\%1"))
 end
 local function resolve_file_pattern(path)
-  _G.assert((nil ~= path), "Missing argument path on tangerine/vim/hooks.fnl:21")
+  _G.assert((nil ~= path), "Missing argument path on tangerine/vim/hooks.fnl:20")
   local function _1_()
     if windows_3f then
       return path:gsub("\\", "/")
@@ -20,12 +20,12 @@ local function exec(...)
   return vim.cmd(table.concat({...}, " "))
 end
 local function parse_autocmd(opts)
-  _G.assert((nil ~= opts), "Missing argument opts on tangerine/vim/hooks.fnl:30")
+  _G.assert((nil ~= opts), "Missing argument opts on tangerine/vim/hooks.fnl:28")
   local groups = table.concat(table.remove(opts, 1), " ")
   return "au", groups, table.concat(opts, " ")
 end
 local function augroup(name, ...)
-  _G.assert((nil ~= name), "Missing argument name on tangerine/vim/hooks.fnl:35")
+  _G.assert((nil ~= name), "Missing argument name on tangerine/vim/hooks.fnl:33")
   exec("augroup", name)
   exec("au!")
   for idx, val in ipairs({...}) do
@@ -65,7 +65,7 @@ hooks.onsave = function()
     end
     return tbl_21_auto
   end
-  patterns = vim.tbl_flatten({resolve_file_pattern(env.get("vimrc")), (resolve_file_pattern(env.get("source")) .. "*.fnl"), map(_3_, env.get("rtpdirs")), map(_4_, _5_())})
+  patterns = vim.iter({resolve_file_pattern(env.get("vimrc")), (resolve_file_pattern(env.get("source")) .. "*.fnl"), map(_3_, env.get("rtpdirs")), map(_4_, _5_())}):flatten():totable()
   return augroup("tangerine-onsave", {{"BufWritePost", table.concat(patterns, ",")}, run_hooks})
 end
 hooks.onload = function()
